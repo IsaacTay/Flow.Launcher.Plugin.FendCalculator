@@ -37,7 +37,6 @@ namespace Flow.Launcher.Plugin.FendCalculator
 
             ProcessStartInfo startInfo = new ProcessStartInfo
             {
-                WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden,
                 CreateNoWindow = true,
                 UseShellExecute = false,
                 RedirectStandardOutput = true,

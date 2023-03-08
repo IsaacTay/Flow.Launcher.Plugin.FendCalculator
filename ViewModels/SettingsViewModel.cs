@@ -1,14 +1,4 @@
-using System.Collections.Generic;
-using System.Linq;
-
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
 using System.IO;
-using System.Linq;
-using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Input;
 
@@ -33,9 +23,9 @@ namespace Flow.Launcher.Plugin.FendCalculator.ViewModels
             }
         }
 
-        private string? PromptUserSelectPath(string? initialDirectory = null)
+        private string PromptUserSelectPath(string? initialDirectory = null)
         {
-            string? path = null;
+            string path = null;
 
             var openFileDialog = new OpenFileDialog();
             if (initialDirectory is not null)
@@ -49,7 +39,7 @@ namespace Flow.Launcher.Plugin.FendCalculator.ViewModels
             return path;
         }
 
-        private ICommand? _openFendPathCommand;
+        private ICommand _openFendPathCommand;
 
         public ICommand OpenFendPath => _openFendPathCommand ??= new RelayCommand(_ =>
         {
