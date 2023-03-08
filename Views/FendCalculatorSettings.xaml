@@ -31,7 +31,7 @@
             Margin="0,0,10,0"
             VerticalAlignment="Center"
             FontSize="14"
-            Text="Fend Command" />
+            Text="{DynamicResource flowlauncher_plugin_fend_calculator_fend_command_setting}" />
         <StackPanel
             Grid.Row="0"
             Grid.Column="1"

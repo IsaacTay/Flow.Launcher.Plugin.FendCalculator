@@ -12,7 +12,7 @@ namespace Flow.Launcher.Plugin.FendCalculator
     /// <Summary>
     /// Fend Calculator Plugin logic
     /// </Summary>
-    public class FendCalculator : IPlugin, ISettingProvider
+    public class FendCalculator : IPlugin, IPluginI18n, ISettingProvider
     {
         private PluginInitContext _context;
         private Settings _settings;
@@ -63,7 +63,7 @@ namespace Flow.Launcher.Plugin.FendCalculator
                     var result = new Result
                     {
                         Title = output,
-                        SubTitle = "Copy result to clipboard",
+                        SubTitle = _context.API.GetTranslation("flowlauncher_plugin_fend_calculator_copy"),
                         IcoPath = "Images/calculator.png",
                         Score = 300,
                         CopyText = output,
@@ -76,7 +76,7 @@ namespace Flow.Launcher.Plugin.FendCalculator
                             }
                             catch (ExternalException)
                             {
-                                MessageBox.Show("Copy failed, please try later");
+                                MessageBox.Show(_context.API.GetTranslation("flowlauncher_plugin_fend_calculator_copy_error"));
                                 return false;
                             }
                         }
@@ -88,8 +88,8 @@ namespace Flow.Launcher.Plugin.FendCalculator
             {
                 results.Add(new Result
                 {
-                    Title = "Error",
-                    SubTitle = "fend command error. Check installation path or fend config file",
+                    Title = _context.API.GetTranslation("flowlauncher_plugin_fend_calculator_error_title"),
+                    SubTitle = _context.API.GetTranslation("flowlauncher_plugin_fend_calculator_error_description"),
                     IcoPath = "Images/calculator.png",
                     Score = 300
                 });
@@ -97,6 +97,22 @@ namespace Flow.Launcher.Plugin.FendCalculator
             }
 
             return results;
+        }
+
+        /// <Summary>
+        /// Translates the plugin title
+        /// </Summary>
+        public string GetTranslatedPluginTitle()
+        {
+            return _context.API.GetTranslation("flowlauncher_plugin_fend_calculator_plugin_name");
+        }
+
+        /// <Summary>
+        /// Translates the plugin description
+        /// </Summary>
+        public string GetTranslatedPluginDescription()
+        {
+            return _context.API.GetTranslation("flowlauncher_plugin_fend_calculator_plugin_description");
         }
 
         /// <Summary>
