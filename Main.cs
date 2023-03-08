@@ -9,12 +9,19 @@ using Flow.Launcher.Plugin.FendCalculator.Views;
 
 namespace Flow.Launcher.Plugin.FendCalculator
 {
+    /// <Summary>
+    /// Fend Calculator Plugin logic
+    /// </Summary>
     public class FendCalculator : IPlugin, ISettingProvider
     {
         private PluginInitContext _context;
         private Settings _settings;
         private static SettingsViewModel _viewModel;
 
+        /// <Summary>
+        /// Runs on plugin intialisation.
+        /// Ensures fend command is not empty
+        /// </Summary>
         public void Init(PluginInitContext context)
         {
             _context = context;
@@ -26,6 +33,9 @@ namespace Flow.Launcher.Plugin.FendCalculator
             }
         }
 
+        /// <Summary>
+        /// Runs each query through fend calculator and displays the results
+        /// </Summary>
         public List<Result> Query(Query query)
         {
             var results = new List<Result> { };
@@ -88,6 +98,10 @@ namespace Flow.Launcher.Plugin.FendCalculator
 
             return results;
         }
+
+        /// <Summary>
+        /// Creates the setting panel
+        /// </Summary>
         public Control CreateSettingPanel()
         {
             return new FendCalculatorSettings(_viewModel);

@@ -4,15 +4,27 @@ using System.Windows.Input;
 
 namespace Flow.Launcher.Plugin.FendCalculator.ViewModels
 {
+    /// <Summary>
+    /// Handles GUI settings logic
+    /// </Summary>
     public class SettingsViewModel : BaseModel
     {
+        /// <Summary>
+        /// Initalises with a specific setting
+        /// </Summary>
         public SettingsViewModel(Settings settings)
         {
             Settings = settings;
         }
 
+        /// <Summary>
+        /// Gets the setting
+        /// </Summary>
         public Settings Settings { get; init; }
 
+        /// <Summary>
+        /// Handles Fend Command setting updates
+        /// </Summary>
         public string FendCommand
         {
             get => Settings.FendCommand;
@@ -23,7 +35,7 @@ namespace Flow.Launcher.Plugin.FendCalculator.ViewModels
             }
         }
 
-        private string PromptUserSelectPath(string? initialDirectory = null)
+        private string PromptUserSelectPath(string initialDirectory = null)
         {
             string path = null;
 
@@ -41,6 +53,9 @@ namespace Flow.Launcher.Plugin.FendCalculator.ViewModels
 
         private ICommand _openFendPathCommand;
 
+        /// <Summary>
+        /// Triggers file picker dialogue for fend executable path
+        /// </Summary>
         public ICommand OpenFendPath => _openFendPathCommand ??= new RelayCommand(_ =>
         {
             var path = PromptUserSelectPath(Settings.FendCommand != null ? Path.GetDirectoryName(Settings.FendCommand) : null);

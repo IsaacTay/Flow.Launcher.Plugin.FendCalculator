@@ -11,6 +11,9 @@ namespace Flow.Launcher.Plugin.FendCalculator.Views
         private readonly SettingsViewModel _viewModel;
         private readonly Settings _settings;
 
+        /// <Summary>
+        /// Initalizes settings view
+        /// </Summary>
         public FendCalculatorSettings(SettingsViewModel viewModel)
         {
             _viewModel = viewModel;
