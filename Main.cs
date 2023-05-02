@@ -94,6 +94,9 @@ namespace Flow.Launcher.Plugin.FendCalculator
             return results;
         }
 
+        /// <Summary>
+        /// Invokes fend with presets
+        /// </Summary>
         private (string output, int exitCode) invokeFend(string fendPath, string query)
         {
             ProcessStartInfo startInfo = new ProcessStartInfo
@@ -110,6 +113,9 @@ namespace Flow.Launcher.Plugin.FendCalculator
             return (output, process.ExitCode);
         }
 
+        /// <Summary>
+        /// Automatically detect fend if no path is configured
+        /// </Summary>
         private void updateFendPath()
         {
             if (string.IsNullOrEmpty(_settings.FendCommand))
