@@ -50,6 +50,13 @@
                 VerticalAlignment="Center"
                 Command="{Binding OpenFendPath}"
                 Content="..." />
+            <Button
+                MinWidth="50"
+                Margin="5,0,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                Command="{Binding ResetFendPath}"
+                Content="↻" />
         </StackPanel>
     </Grid>
 </UserControl>

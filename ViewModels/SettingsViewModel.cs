@@ -64,5 +64,15 @@ namespace Flow.Launcher.Plugin.FendCalculator.ViewModels
 
             FendCommand = path;
         });
+
+        private ICommand _resetFendPath;
+
+        /// <Summary>
+        /// Clears fend path to trigger auto-detect
+        /// </Summary>
+        public ICommand ResetFendPath => _resetFendPath ??= new RelayCommand(_ =>
+        {
+            FendCommand = "";
+        });
     }
 }
