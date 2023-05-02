@@ -17,6 +17,7 @@ namespace Flow.Launcher.Plugin.FendCalculator
         private PluginInitContext _context;
         private Settings _settings;
         private static SettingsViewModel _viewModel;
+        private readonly string[] FEND_PATHS = { "fend", "C:\\Program Files\\fend\\bin\\fend.exe", "C:\\Program Files (x86)\\fend\\bin\\fend.exe" };
 
         /// <Summary>
         /// Runs on plugin intialisation.
@@ -27,10 +28,7 @@ namespace Flow.Launcher.Plugin.FendCalculator
             _context = context;
             _settings = context.API.LoadSettingJsonStorage<Settings>();
             _viewModel = new SettingsViewModel(_settings);
-            if (string.IsNullOrEmpty(_settings.FendCommand))
-            {
-                _settings.FendCommand = "fend";
-            }
+            updateFendPath();
         }
 
         /// <Summary>
@@ -45,20 +43,17 @@ namespace Flow.Launcher.Plugin.FendCalculator
                 return results;
             }
 
-            ProcessStartInfo startInfo = new ProcessStartInfo
+            updateFendPath();
+            if (string.IsNullOrEmpty(_settings.FendCommand))
             {
-                CreateNoWindow = true,
-                UseShellExecute = false,
-                RedirectStandardOutput = true,
-                StandardOutputEncoding = Encoding.UTF8,
-                FileName = $"{_settings.FendCommand}",
-                Arguments = $"\"{query.Search}\""
-            };
+                // TODO: Prompt for install
+                return results;
+            }
+
             try
             {
-                Process process = Process.Start(startInfo);
-                string output = process.StandardOutput.ReadToEnd().TrimEnd();
-                if (process.ExitCode == 0 && !string.IsNullOrEmpty(output))
+                (string output, int exitCode) = invokeFend(_settings.FendCommand, query.Search);
+                if (exitCode == 0 && !string.IsNullOrEmpty(output))
                 {
                     var result = new Result
                     {
@@ -97,6 +92,39 @@ namespace Flow.Launcher.Plugin.FendCalculator
             }
 
             return results;
+        }
+
+        private (string output, int exitCode) invokeFend(string fendPath, string query)
+        {
+            ProcessStartInfo startInfo = new ProcessStartInfo
+            {
+                CreateNoWindow = true,
+                UseShellExecute = false,
+                RedirectStandardOutput = true,
+                StandardOutputEncoding = Encoding.UTF8,
+                FileName = fendPath,
+                Arguments = $"\"{query}\""
+            };
+            Process process = Process.Start(startInfo);
+            string output = process.StandardOutput.ReadToEnd().TrimEnd();
+            return (output, process.ExitCode);
+        }
+
+        private void updateFendPath()
+        {
+            if (string.IsNullOrEmpty(_settings.FendCommand))
+            {
+                foreach (string fend_path in FEND_PATHS)
+                {
+                    try
+                    {
+                        invokeFend(fend_path, "1+1");
+                        _settings.FendCommand = fend_path;
+                        break;
+                    }
+                    catch (ExternalException) { }
+                }
+            }
         }
 
         /// <Summary>
