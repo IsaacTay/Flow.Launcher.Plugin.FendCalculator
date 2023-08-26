@@ -35,6 +35,18 @@ namespace Flow.Launcher.Plugin.FendCalculator.ViewModels
             }
         }
 
+        public string Timeout
+        {
+            get => Settings.Timeout.ToString();
+            set
+            {
+                if (!int.TryParse(value, out _))
+                    return;
+                Settings.Timeout = int.Parse(value);
+                OnPropertyChanged();
+            }
+        }
+
         private string PromptUserSelectPath(string initialDirectory = null)
         {
             string path = null;
@@ -73,6 +85,13 @@ namespace Flow.Launcher.Plugin.FendCalculator.ViewModels
         public ICommand ResetFendPath => _resetFendPath ??= new RelayCommand(_ =>
         {
             FendCommand = "";
+        });
+
+        private ICommand _resetTimeout;
+
+        public ICommand ResetTimeout => _resetTimeout ??= new RelayCommand(_ =>
+        {
+            Timeout = "5000";
         });
     }
 }

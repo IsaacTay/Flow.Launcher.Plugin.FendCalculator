@@ -92,7 +92,7 @@ namespace Flow.Launcher.Plugin.FendCalculator
                     results.Add(new Result
                     {
                       Title = _context.API.GetTranslation("flowlauncher_plugin_fend_calculator_timeout_title"),
-                      SubTitle = _context.API.GetTranslation("flowlauncher_plugin_fend_calculator_timeout_description") + ": 5000ms",
+                      SubTitle = _context.API.GetTranslation("flowlauncher_plugin_fend_calculator_timeout_description") + ": " + _settings.Timeout + "ms",
                       IcoPath = "Images/calculator.png",
                       Score = 300,
                     });
@@ -127,7 +127,7 @@ namespace Flow.Launcher.Plugin.FendCalculator
                 Arguments = $"\"{query}\""
             };
             Process process = Process.Start(startInfo);
-            if (!process.WaitForExit( 5000 )) {
+            if (!process.WaitForExit( _settings.Timeout )) {
               process.Kill();
               return ("Computation Timeout: 5000ms", (int)ExitCode.Timeout );
             }

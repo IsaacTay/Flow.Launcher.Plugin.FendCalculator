@@ -19,6 +19,7 @@
     <Grid Margin="70,14,0,14">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
@@ -56,6 +57,33 @@
                 HorizontalAlignment="Left"
                 VerticalAlignment="Center"
                 Command="{Binding ResetFendPath}"
+                Content="↻" />
+        </StackPanel>
+        
+        <TextBlock
+            Grid.Row="1"
+            Grid.Column="0"
+            Margin="0,0,10,0"
+            VerticalAlignment="Center"
+            FontSize="14"
+            Text="{DynamicResource flowlauncher_plugin_fend_calculator_timeout_setting}" />
+        <StackPanel
+            Grid.Row="1"
+            Grid.Column="1"
+            Margin="0,6,6,6"
+            Orientation="Horizontal">
+            <TextBox
+                Width="250"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                Text="{Binding Timeout}"
+                TextWrapping="NoWrap" />
+            <Button
+                MinWidth="50"
+                Margin="5,0,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                Command="{Binding ResetTimeout}"
                 Content="↻" />
         </StackPanel>
     </Grid>

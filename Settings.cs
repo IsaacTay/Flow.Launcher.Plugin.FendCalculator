@@ -9,5 +9,7 @@ namespace Flow.Launcher.Plugin.FendCalculator
         /// Command or path to run fend executable
         /// </Summary>
         public string FendCommand { get; set; } = "fend";
+
+        public int Timeout { get; set; } = 5000;
     }
 }

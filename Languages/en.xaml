@@ -5,6 +5,7 @@
     <system:String x:Key="flowlauncher_plugin_fend_calculator_plugin_name">FendCalculator</system:String>
     <system:String x:Key="flowlauncher_plugin_fend_calculator_plugin_description">Arbitrary-precision unit-aware calculator. https://printfn.github.io/fend/</system:String>
     <system:String x:Key="flowlauncher_plugin_fend_calculator_fend_command_setting">Fend Command</system:String>
+    <system:String x:Key="flowlauncher_plugin_fend_calculator_timeout_setting">Timeout</system:String>
     <system:String x:Key="flowlauncher_plugin_fend_calculator_copy">Copy result to the clipboard</system:String>
     <system:String x:Key="flowlauncher_plugin_fend_calculator_copy_error">Copy failed, please try later</system:String>
     <system:String x:Key="flowlauncher_plugin_fend_calculator_error_title">Error</system:String>
