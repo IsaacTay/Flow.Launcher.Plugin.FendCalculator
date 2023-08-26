@@ -9,4 +9,6 @@
     <system:String x:Key="flowlauncher_plugin_fend_calculator_copy_error">Copy failed, please try later</system:String>
     <system:String x:Key="flowlauncher_plugin_fend_calculator_error_title">Error</system:String>
     <system:String x:Key="flowlauncher_plugin_fend_calculator_error_description">fend command error. Check installation path or fend config file</system:String>
+    <system:String x:Key="flowlauncher_plugin_fend_calculator_timeout_title">Fend Timeout</system:String>
+    <system:String x:Key="flowlauncher_plugin_fend_calculator_timeout_description">Current Timeout</system:String>
 </ResourceDictionary>

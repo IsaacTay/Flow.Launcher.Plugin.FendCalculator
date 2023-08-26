@@ -19,6 +19,12 @@ namespace Flow.Launcher.Plugin.FendCalculator
         private static SettingsViewModel _viewModel;
         private readonly string[] FEND_PATHS = { "fend", "C:\\Program Files\\fend\\bin\\fend.exe", "C:\\Program Files (x86)\\fend\\bin\\fend.exe" };
 
+        private enum ExitCode
+        {
+            Success = 0,
+            Timeout = 258
+        }
+
         /// <Summary>
         /// Runs on plugin intialisation.
         /// Ensures fend command is not empty
@@ -53,9 +59,13 @@ namespace Flow.Launcher.Plugin.FendCalculator
             try
             {
                 (string output, int exitCode) = invokeFend(_settings.FendCommand, query.Search);
-                if (exitCode == 0 && !string.IsNullOrEmpty(output))
+                if (string.IsNullOrEmpty(output))
                 {
-                    var result = new Result
+                  return results;
+                }
+                else if (exitCode == (int)ExitCode.Success) 
+                {
+                    results.Add(new Result
                     {
                         Title = output,
                         SubTitle = _context.API.GetTranslation("flowlauncher_plugin_fend_calculator_copy"),
@@ -75,8 +85,17 @@ namespace Flow.Launcher.Plugin.FendCalculator
                                 return false;
                             }
                         }
-                    };
-                    results.Add(result);
+                    });
+                }
+                else if (exitCode == (int)ExitCode.Timeout)
+                {
+                    results.Add(new Result
+                    {
+                      Title = _context.API.GetTranslation("flowlauncher_plugin_fend_calculator_timeout_title"),
+                      SubTitle = _context.API.GetTranslation("flowlauncher_plugin_fend_calculator_timeout_description") + ": 5000ms",
+                      IcoPath = "Images/calculator.png",
+                      Score = 300,
+                    });
                 }
             }
             catch (ExternalException)
@@ -88,7 +107,6 @@ namespace Flow.Launcher.Plugin.FendCalculator
                     IcoPath = "Images/calculator.png",
                     Score = 300
                 });
-                return results;
             }
 
             return results;
@@ -109,6 +127,10 @@ namespace Flow.Launcher.Plugin.FendCalculator
                 Arguments = $"\"{query}\""
             };
             Process process = Process.Start(startInfo);
+            if (!process.WaitForExit( 5000 )) {
+              process.Kill();
+              return ("Computation Timeout: 5000ms", (int)ExitCode.Timeout );
+            }
             string output = process.StandardOutput.ReadToEnd().TrimEnd();
             return (output, process.ExitCode);
         }
