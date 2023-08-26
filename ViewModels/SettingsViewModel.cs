@@ -35,6 +35,9 @@ namespace Flow.Launcher.Plugin.FendCalculator.ViewModels
             }
         }
 
+        /// <Summary>
+        /// Handles Fend Timeout setting updates
+        /// </Summary>
         public string Timeout
         {
             get => Settings.Timeout.ToString();
@@ -89,6 +92,9 @@ namespace Flow.Launcher.Plugin.FendCalculator.ViewModels
 
         private ICommand _resetTimeout;
 
+        /// <Summary>
+        /// Resets timeout to 5000ms
+        /// </Summary>
         public ICommand ResetTimeout => _resetTimeout ??= new RelayCommand(_ =>
         {
             Timeout = "5000";

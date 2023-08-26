@@ -10,6 +10,9 @@ namespace Flow.Launcher.Plugin.FendCalculator
         /// </Summary>
         public string FendCommand { get; set; } = "fend";
 
+        /// <Summary>
+        /// Timeout in milliseconds
+        /// </Summary>
         public int Timeout { get; set; } = 5000;
     }
 }
