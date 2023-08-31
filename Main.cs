@@ -76,7 +76,7 @@ namespace Flow.Launcher.Plugin.FendCalculator
                         {
                             try
                             {
-                                _context.API.CopyToClipboard(output);
+                                Clipboard.SetDataObject(output);
                                 return true;
                             }
                             catch (ExternalException)
